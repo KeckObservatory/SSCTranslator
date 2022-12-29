@@ -30,7 +30,7 @@ class ExecuteObservation(KPFTranslatorFunction):
         # Expose!
         GOkw = ktl.cache(service='magiq', keyword='camcmd')
         logger.info('Starting exposure')
-        GOkw.write(start)
+        GOkw.write('start')
         
         return
 #        raise NotImplementedError()
