@@ -1,9 +1,9 @@
 
 common:
-  prefix: name_of_this_module
+  prefix: ssc
   suffix: null
 
 links:
 
-  whatyoutypeintothecommandline:
-    cmd: pythonpath.to.your.function
+  ExOb:
+    cmd: ddpo_script_functions.execute_observation.ExecuteObservation
