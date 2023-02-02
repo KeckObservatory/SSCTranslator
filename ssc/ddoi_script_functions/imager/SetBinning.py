@@ -10,7 +10,7 @@ class SetBinning(SSCTranslatorFunction):
     '''Sets the binning for the SSC in the magiq keyword service.
     
     Args:
-    Exptime - The exposure time in seconds
+    Binning - The binning value 1, 2, 4, 8
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):

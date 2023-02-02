@@ -10,23 +10,26 @@ class SetGuiding(SSCTranslatorFunction):
     '''Sets the guiding for the SSC in the magiq keyword service.
     
     Args:
-    Exptime - The exposure time in seconds
+    Guiding - Turns guiding on or off
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
+        check_input(args, 'guiding', allowed_types=[bool])
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
         guiding = args.get('guiding')
-        log.debug(f"Setting guiding to {guiding:.3f}")
-        magiq['mqstopg'].write(guiding)
+        log.debug("Setting guiding to "+guiding)
+        if guiding==True:
+            magiq['mqstopg'].write(1)
+        else:
+            magiq['mqstopg'].write(0)
         magiq['camcmd'].write('set')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-#        check that guiding is 1 or 0
         return True
 
     @classmethod
@@ -35,7 +38,7 @@ class SetGuiding(SSCTranslatorFunction):
         '''
         from collections import OrderedDict
         args_to_add = OrderedDict()
-        args_to_add['guiding'] = {'type': int,
-                                  'help': 'Set Guiding on or off (1 or 0).'}
+        args_to_add['guiding'] = {'type': bool,
+                                  'help': 'Set Guiding on or off (True or False).'}
         parser = cls._add_args(parser, args_to_add, print_only=False)
         return super().add_cmdline_args(parser, cfg)
