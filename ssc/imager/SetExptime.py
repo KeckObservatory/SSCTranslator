@@ -1,43 +1,41 @@
 import time
 import ktl
 
-from ddoitranslatormodule.SSCTranslatorFunction import SSCTranslatorFunction
+from SSCTranslatorFunction import SSCTranslatorFunction
 from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
                 FailedToReachDestination, check_input)
 
 
-class SetImageSave(SSCTranslatorFunction):
-    '''Sets the image saving parameter for the SSC in the magiq keyword service.
+class SetExptime(SSCTranslatorFunction):
+    '''Sets the exposure time for the SSC in the magiq keyword service.
     
     Args:
-    Image Save - Turns image saving on/off
+    Exptime - The exposure time in seconds
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        check_input(args, 'save', allowed_types=[bool])
+        check_input(args, 'Exptime', allowed_types=[int, float])
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
-        save = args.get('save')
-        log.debug("Setting image saving to "+str(save))
-        if save==True:
-            magiq['mqsnpff'].write(1)
-        else:
-            magiq['mqsnpff'].write(0)
-
+        ttime = args.get('TTIME')
+        log.debug(f"Setting exposure time to {ttime:.3f}")
+        magiq['TTIME'].write(ttime)
+        magiq['camcmd'].write('start')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
         log.debug("Checking for success")
-        save = args.get('save')
+        ttime = args.get('TTIME')
         magiq = ktl.cache('magiq')
-        magiqsave=magiq.read('mqsnpff')
-        if save!=bool(magiqsave):
-            raise FailedToReachDestination(magiqsave, save)
+        magiqttime = magiq.read('TTIME')
+        if magiqttime!=ttime:
+            raise FailedToReachDestination(magiqttime, ttime)
         else:
             return True
+
 
     @classmethod
     def add_cmdline_args(cls, parser, cfg=None):
@@ -45,7 +43,7 @@ class SetImageSave(SSCTranslatorFunction):
         '''
         from collections import OrderedDict
         args_to_add = OrderedDict()
-        args_to_add['save'] = {'type': bool,
-                                  'help': 'Set image saving to True/False.'}
+        args_to_add['Exptime'] = {'type': float,
+                                  'help': 'The exposure time in seconds.'}
         parser = cls._add_args(parser, args_to_add, print_only=False)
         return super().add_cmdline_args(parser, cfg)

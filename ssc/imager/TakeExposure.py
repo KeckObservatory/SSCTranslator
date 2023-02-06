@@ -1,7 +1,8 @@
 import time
 import ktl
 
-from ddoitranslatormodule.SSCTranslatorFunction import SSCTranslatorFunction
+from SSCTranslatorFunction import SSCTranslatorFunction
+from imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
 from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
                 FailedToReachDestination, check_input)
 
@@ -21,8 +22,8 @@ class TakeExposure(SSCTranslatorFunction):
 
         SetImagePath(path='/s/nightly1/tonight')
         SetGuiding(guiding=False)
-        SetBinning(binning=binning)
-        SetExptime(Exptime=exptime)
+        SetBinning(binning=args.binning)
+        SetExptime(Exptime=args.exptime)
         SetImageSave(save=True)
 
 
@@ -31,8 +32,8 @@ class TakeExposure(SSCTranslatorFunction):
 
         magiq = ktl.cache('magiq')
         newframe=magiq.read('IMGFRNR')
-        if newframe<=lastframe:
-            raise FailedToReachDestination(newframe, lastframe)
+        if newframe<=args.lastframe:
+            raise FailedToReachDestination(newframe, args.lastframe)
         else:
             return True
 

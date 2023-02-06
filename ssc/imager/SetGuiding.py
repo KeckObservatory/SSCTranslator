@@ -1,7 +1,7 @@
 import time
 import ktl
 
-from ddoitranslatormodule.SSCTranslatorFunction import SSCTranslatorFunction
+from SSCTranslatorFunction import SSCTranslatorFunction
 from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
                 FailedToReachDestination, check_input)
 
