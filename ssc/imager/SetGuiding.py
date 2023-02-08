@@ -14,14 +14,14 @@ class SetGuiding(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        check_input(args, 'guiding', allowed_types=[bool])
+        cls.check_input(args, 'guiding', allowed_types=[bool])
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
         guiding = args.get('guiding')
-        log.debug("Setting guiding to "+guiding)
+        logger.debug("Setting guiding to "+guiding)
         if guiding==True:
             magiq['mqstopg'].write(1)
         else:
