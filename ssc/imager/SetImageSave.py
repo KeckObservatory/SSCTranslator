@@ -14,7 +14,7 @@ class SetImageSave(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        check_input(args, 'save', allowed_types=[bool])
+        cls.check_input(args, 'save', allowed_types=[bool])
         return True
 
     @classmethod
@@ -30,7 +30,7 @@ class SetImageSave(SSCTranslatorFunction):
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-        log.debug("Checking for success")
+        logger.debug("Checking for success")
         save = args.get('save')
         magiq = ktl.cache('magiq')
         magiqsave=magiq.read('mqsnpff')
