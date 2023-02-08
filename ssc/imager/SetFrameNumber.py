@@ -14,20 +14,20 @@ class SetFrameNumber(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        check_input(args, 'frame', allowed_types=[int])
+        cls.check_input(args, 'frame', allowed_types=[int])
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
         frame = args.get('frame')
-        log.debug("Setting frame number to "+frame)
+        logger.debug("Setting frame number to "+frame)
         magiq['IMGFRNR'].write(frame)
         magiq['IMGCMD'].write('set')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-        log.debug("Checking for success")
+        logger.debug("Checking for success")
         frame = args.get('frame')
         magiq = ktl.cache('magiq')
         magiqframe=magiq.read('IMGFRNR')
