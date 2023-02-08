@@ -14,24 +14,24 @@ class SetBinning(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        check_input(args, 'Binning', allowed_types=[int])
+        cls.check_input(args, 'Binning', allowed_types=[int])
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
-        binning = args.get('BINNING')
-        log.debug(f"Setting binning to {binning:.3f}")
+        binning = args.get('binning')
+        logger.debug(f"Setting binning to {binning:.3f}")
         magiq['BINNING'].write(binning)
         magiq['camcmd'].write('set')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
-        log.debug("Checking for success")
+        logger.debug("Checking for success")
         binning = args.get('BINNING')
         magiqbin = magiq['BINNING'].read()
-        log.debug(f"Checking binning: Requsted {binning:.3f}, Actual {binning:.3f} ")
+        logger.debug(f"Checking binning: Requsted {binning:.3f}, Actual {binning:.3f} ")
 
         if magiqbin==binning:
             success=True
@@ -44,7 +44,7 @@ class SetBinning(SSCTranslatorFunction):
         '''
         from collections import OrderedDict
         args_to_add = OrderedDict()
-        args_to_add['Binning'] = {'type': int,
+        args_to_add['binning'] = {'type': int,
                                   'help': 'The number of pixels to bin.'}
         parser = cls._add_args(parser, args_to_add, print_only=False)
         return super().add_cmdline_args(parser, cfg)
