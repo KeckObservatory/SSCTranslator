@@ -17,3 +17,10 @@ class SSCTranslatorFunction(TranslatorModuleFunction):
         config_files = [cfg]
 
         return config_files
+    
+    @classmethod
+    def check_inputs(self, args, key, allowed_types):
+        if args[key]:
+            if type(args[key]) in allowed_types:
+                return True
+        return False
