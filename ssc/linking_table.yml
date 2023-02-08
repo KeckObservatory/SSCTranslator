@@ -1,9 +1,27 @@
 
 common:
-  prefix: name_of_this_module
+  prefix: ssc
   suffix: null
 
 links:
 
-  whatyoutypeintothecommandline:
-    cmd: pythonpath.to.your.function
+  SetExpTime:
+    cmd: imager.SetExpTime.SetExpTime
+
+  SetBinning:
+    cmd: imager.SetBinning.SetBinning
+
+  SetFrameNo:
+    cmd: imager.SetFrameNumber.SetFrameNumber
+
+  SetOutPath:
+    cmd: imager.SetImagePath.SetImagePath
+
+  SetSaveImage:
+    cmd: imager.SetImageSave.SetImageSave
+
+  ToggleGuiding:
+    cmd: imager.SetGuiding.SetGuiding
+  
+  expose:
+    cmd: imager.TakeExposure.TakeExposure
