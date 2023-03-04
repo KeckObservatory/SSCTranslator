@@ -2,8 +2,6 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
 
 
 class SetGuiding(SSCTranslatorFunction):

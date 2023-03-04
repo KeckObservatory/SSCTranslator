@@ -2,8 +2,8 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
+
 
 
 class SetFrameNumber(SSCTranslatorFunction):
@@ -32,7 +32,7 @@ class SetFrameNumber(SSCTranslatorFunction):
         magiq = ktl.cache('magiq')
         magiqframe=magiq.read('IMGFRNR')
         if magiqframe!=frame:
-            raise FailedToReachDestination(magiqframe, frame)
+            raise DDOIExceptions.FailedToReachDestination(magiqframe, frame)
         else:
             return True
 
