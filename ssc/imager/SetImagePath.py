@@ -2,8 +2,8 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
+
 
 
 class SetImagePath(SSCTranslatorFunction):
@@ -32,7 +32,7 @@ class SetImagePath(SSCTranslatorFunction):
         magiq = ktl.cache('magiq')
         magiqpath=magiq.read('IMGDIR')
         if magiqpath!=path:
-            raise FailedToReachDestination(magiqpath, path)
+            raise DDOIExceptions.FailedToReachDestination(magiqpath, path)
         else:
             return True
 

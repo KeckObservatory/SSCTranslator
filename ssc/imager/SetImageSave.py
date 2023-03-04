@@ -2,8 +2,8 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
+
 
 
 class SetImageSave(SSCTranslatorFunction):
@@ -21,7 +21,7 @@ class SetImageSave(SSCTranslatorFunction):
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
         save = args.get('save')
-        log.debug("Setting image saving to "+str(save))
+        logger.debug("Setting image saving to "+str(save))
         if save==True:
             magiq['mqsnpff'].write(1)
         else:
@@ -35,7 +35,7 @@ class SetImageSave(SSCTranslatorFunction):
         magiq = ktl.cache('magiq')
         magiqsave=magiq.read('mqsnpff')
         if save!=bool(magiqsave):
-            raise FailedToReachDestination(magiqsave, save)
+            raise DDOIExceptions.FailedToReachDestination(magiqsave, save)
         else:
             return True
 

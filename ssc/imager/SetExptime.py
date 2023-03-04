@@ -2,8 +2,8 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
+
 
 
 class SetExptime(SSCTranslatorFunction):
@@ -32,7 +32,7 @@ class SetExptime(SSCTranslatorFunction):
         magiq = ktl.cache('magiq')
         magiqttime = magiq.read('TTIME')
         if magiqttime!=ttime:
-            raise FailedToReachDestination(magiqttime, ttime)
+            raise DDOIExceptions.FailedToReachDestination(magiqttime, ttime)
         else:
             return True
 

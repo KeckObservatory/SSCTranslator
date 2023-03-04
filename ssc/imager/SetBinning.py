@@ -2,9 +2,7 @@ import time
 import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                check_input)
-
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
 
 class SetBinning(SSCTranslatorFunction):
     '''Sets the binning for the SSC in the magiq keyword service.
@@ -14,7 +12,9 @@ class SetBinning(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        cls.check_input(args, 'Binning', allowed_types=[int])
+        if not cls.check_input(args, 'Binning', allowed_types=[int]):
+            logger.error("")
+            raise DDOIExceptions.DDOIInvalidArguments(f"'Binning' argument not found")
         return True
 
     @classmethod

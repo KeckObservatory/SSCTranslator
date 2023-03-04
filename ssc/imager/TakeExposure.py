@@ -3,8 +3,8 @@ import ktl
 
 from SSCTranslatorFunction import SSCTranslatorFunction
 from imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
-from .. import (log, SSCException, FailedPreCondition, FailedPostCondition,
-                FailedToReachDestination, check_input)
+from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
+
 
 
 class TakeExposure(SSCTranslatorFunction):
@@ -33,7 +33,7 @@ class TakeExposure(SSCTranslatorFunction):
         magiq = ktl.cache('magiq')
         newframe=magiq.read('IMGFRNR')
         if newframe<=args.lastframe:
-            raise FailedToReachDestination(newframe, args.lastframe)
+            raise DDOIExceptions.FailedToReachDestination(newframe, args.lastframe)
         else:
             return True
 
