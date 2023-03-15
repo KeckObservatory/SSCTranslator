@@ -1,8 +1,8 @@
 import time
 import ktl
 
-from SSCTranslatorFunction import SSCTranslatorFunction
-from imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
+from ssc.imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
 from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
 
 

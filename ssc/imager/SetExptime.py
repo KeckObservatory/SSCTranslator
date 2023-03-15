@@ -1,7 +1,7 @@
 import time
 import ktl
 
-from SSCTranslatorFunction import SSCTranslatorFunction
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
 
 
