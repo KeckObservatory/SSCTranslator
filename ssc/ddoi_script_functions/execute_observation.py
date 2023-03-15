@@ -1,8 +1,5 @@
 import ktl
 
-from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
-
-
 class ExecuteObservation(KPFTranslatorFunction):
     '''
     '''
