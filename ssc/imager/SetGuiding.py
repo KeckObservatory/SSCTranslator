@@ -12,7 +12,7 @@ class SetGuiding(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        cls.check_input(args, 'guiding', allowed_types=[bool])
+        SSCTranslatorFunction.check_input(args, 'guiding', allowed_types=[bool])
         return True
 
     @classmethod
