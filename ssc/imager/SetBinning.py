@@ -12,7 +12,7 @@ class SetBinning(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        if not SSCTranslatorFunction.check_input(args, 'Binning', allowed_types=[int]):
+        if not SetBinning.check_input(args, 'Binning', allowed_types=[int]):
             logger.error("")
             raise DDOIExceptions.DDOIInvalidArguments(f"'Binning' argument not found")
         return True

@@ -14,7 +14,7 @@ class SetImageSave(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        SSCTranslatorFunction.check_input(args, 'save', allowed_types=[bool])
+        SetImageSave.check_input(args, 'save', allowed_types=[bool])
         return True
 
     @classmethod

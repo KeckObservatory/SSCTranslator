@@ -14,7 +14,7 @@ class SetFrameNumber(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        SSCTranslatorFunction.check_input(args, 'frame', allowed_types=[int])
+        SetFrameNumber.check_input(args, 'frame', allowed_types=[int])
         return True
 
     @classmethod
