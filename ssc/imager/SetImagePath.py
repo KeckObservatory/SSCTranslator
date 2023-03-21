@@ -14,7 +14,7 @@ class SetImagePath(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        SetImagePath.check_input(args, 'path', allowed_types=[str])
+        cls.check_inputs(args, 'path', allowed_types=[str])
         return True
 
     @classmethod
