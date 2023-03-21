@@ -20,7 +20,7 @@ class SetExptime(SSCTranslatorFunction):
     @classmethod
     def perform(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
-        ttime = args.get('TTIME')
+        ttime = args.get('Exptime')
         logger.debug(f"Setting exposure time to {ttime:.3f}")
         magiq['TTIME'].write(ttime)
         magiq['camcmd'].write('start')
@@ -28,7 +28,7 @@ class SetExptime(SSCTranslatorFunction):
     @classmethod
     def post_condition(cls, args, logger, cfg):
         logger.debug("Checking for success")
-        ttime = args.get('TTIME')
+        ttime = args.get('Exptime')
         magiq = ktl.cache('magiq')
         magiqttime = magiq.read('TTIME')
         if magiqttime!=ttime:
