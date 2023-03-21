@@ -12,7 +12,7 @@ class SetBinning(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
-        if not cls.check_inputs(args, 'Binning', allowed_types=[int]):
+        if not cls.check_inputs(args, 'binning', allowed_types=[int]):
             logger.error("")
             raise DDOIExceptions.DDOIInvalidArguments(f"'Binning' argument not found")
         return True
@@ -29,7 +29,7 @@ class SetBinning(SSCTranslatorFunction):
     def post_condition(cls, args, logger, cfg):
         magiq = ktl.cache('magiq')
         logger.debug("Checking for success")
-        binning = args.get('BINNING')
+        binning = args.get('binning')
         magiqbin = magiq['BINNING'].read()
         logger.debug(f"Checking binning: Requsted {binning:.3f}, Actual {binning:.3f} ")
 
