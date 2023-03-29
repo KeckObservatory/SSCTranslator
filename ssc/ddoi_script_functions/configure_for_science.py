@@ -1,6 +1,5 @@
 import ktl
-
-from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
+from kpf.KPFTranslatorFunction import KPFTranslatorFunction
 
 
 class configure_for_science(KPFTranslatorFunction):
