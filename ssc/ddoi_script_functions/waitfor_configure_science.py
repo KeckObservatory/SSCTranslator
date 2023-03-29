@@ -1,5 +1,4 @@
 import ktl
-
 from kpf.KPFTranslatorFunction import KPFTranslatorFunction
 
 

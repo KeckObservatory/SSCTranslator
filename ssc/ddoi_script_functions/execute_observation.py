@@ -1,4 +1,5 @@
 import ktl
+from kpf.KPFTranslatorFunction import KPFTranslatorFunction
 
 class execute_observation(KPFTranslatorFunction):
     '''
