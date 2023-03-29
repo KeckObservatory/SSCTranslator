@@ -1,6 +1,6 @@
 import ktl
 
-class ExecuteObservation(KPFTranslatorFunction):
+class execute_observation(KPFTranslatorFunction):
     '''
     '''
     @classmethod

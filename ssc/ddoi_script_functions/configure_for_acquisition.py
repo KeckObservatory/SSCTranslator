@@ -3,7 +3,7 @@ import ktl
 from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
 
 
-class ConfigureForAcquisition(KPFTranslatorFunction):
+class configure_for_acquisition(KPFTranslatorFunction):
     '''
     '''
     @classmethod

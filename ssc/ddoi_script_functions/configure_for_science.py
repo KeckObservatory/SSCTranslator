@@ -3,7 +3,7 @@ import ktl
 from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
 
 
-class ConfigureForScience(KPFTranslatorFunction):
+class configure_for_science(KPFTranslatorFunction):
     '''
     '''
     @classmethod
