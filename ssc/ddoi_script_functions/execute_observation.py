@@ -1,5 +1,6 @@
 import ktl
 from kpf.KPFTranslatorFunction import KPFTranslatorFunction
+from ..imager.SetExptime import SetExptime
 
 class execute_observation(KPFTranslatorFunction):
     '''
@@ -10,7 +11,16 @@ class execute_observation(KPFTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        raise NotImplementedError()
+        sequence = args.get('sequence')
+        metadata = sequence.get('metadata')
+        seq_num = metadata.get('sequence_number')
+        logger.info(f'excuting observation for seq {seq_num}')
+        params = sequence.get('parameters')
+        exptime = params.get('det1_exp_time')
+        seArgs = {'exptime': exptime}
+        SetExptime.perform(seArgs, logger, cfg)
+
+        
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
