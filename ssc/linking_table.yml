@@ -5,5 +5,23 @@ common:
 
 links:
 
-  ExOb:
-    cmd: ddpo_script_functions.execute_observation.ExecuteObservation
+  SetExpTime:
+    cmd: imager.SetExpTime.SetExpTime
+
+  SetBinning:
+    cmd: imager.SetBinning.SetBinning
+
+  SetFrameNo:
+    cmd: imager.SetFrameNumber.SetFrameNumber
+
+  SetOutPath:
+    cmd: imager.SetImagePath.SetImagePath
+
+  SetSaveImage:
+    cmd: imager.SetImageSave.SetImageSave
+
+  ToggleGuiding:
+    cmd: imager.SetGuiding.SetGuiding
+  
+  expose:
+    cmd: imager.TakeExposure.TakeExposure

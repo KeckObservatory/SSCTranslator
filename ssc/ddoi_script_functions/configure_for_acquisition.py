@@ -1,9 +1,8 @@
 import ktl
+from kpf.KPFTranslatorFunction import KPFTranslatorFunction
 
-from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
 
-
-class ConfigureForAcquisition(KPFTranslatorFunction):
+class configure_for_acquisition(KPFTranslatorFunction):
     '''
     '''
     @classmethod

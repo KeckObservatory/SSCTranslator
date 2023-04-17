@@ -1,9 +1,8 @@
 import ktl
+from kpf.KPFTranslatorFunction import KPFTranslatorFunction
 
-from ddoitranslatormodule.KPFTranslatorFunction import KPFTranslatorFunction
 
-
-class WaitForConfigureAcquisition(KPFTranslatorFunction):
+class post_observation_cleanup(KPFTranslatorFunction):
     '''
     '''
     @classmethod
