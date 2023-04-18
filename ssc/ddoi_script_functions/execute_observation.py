@@ -18,7 +18,7 @@ class execute_observation(SSCTranslatorFunction):
         params = sequence.get('parameters')
         exptime = params.get('det1_exp_time')
         seArgs = {'exptime': exptime}
-        SetExptime.perform(seArgs, logger, cfg)
+        SetExptime.execute(seArgs, logger, cfg)
 
         
 

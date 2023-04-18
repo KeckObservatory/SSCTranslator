@@ -19,17 +19,19 @@ class SetExptime(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         ttime = args.get('exptime')
-        logger.debug(f"Setting exposure time to {ttime:.3f}")
+        logger.debug(f"Setting exposure time to {ttime:.3f} for service {service}")
         magiq['TTIME'].write(ttime)
         magiq['camcmd'].write('start')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-        logger.debug("Checking for success")
+        service = cfg['magiq']['service_name']
+        logger.debug(f"Checking for success for service {service}")
         ttime = args.get('Exptime')
-        magiq = ktl.cache('magiq')
+        magiq = ktl.cache(service)
         magiqttime = magiq.read('TTIME')
         if magiqttime!=ttime:
             raise DDOIExceptions.FailedToReachDestination(magiqttime, ttime)
