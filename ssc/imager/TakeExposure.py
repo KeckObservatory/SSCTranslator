@@ -7,6 +7,8 @@ from ssc.imager.SetGuiding import SetGuiding
 from ssc.imager.SetBinning import SetBinning
 from ssc.imager.SetExptime import SetExptime
 from ssc.imager.SetImageSave import SetImageSave
+from ssc.imager.ToggleCamera import ToggleCamera
+
 
 # from ssc.imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
 from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
@@ -27,11 +29,13 @@ class TakeExposure(SSCTranslatorFunction):
         lastframe=int(float(magiq.read('IMGFRNR')))
         logger.info(f'taking {lastframe}th frame')
 
+        ToggleCamera.execute({'status' : 'start'})
         SetImagePath.execute({'path' : '/s/nightly1/tonight'})
         # SetGuiding.execute({'guiding' : False})
         # SetBinning.execute({'binning' : args.binning})
-        # SetExptime.execute({'Exptime' : args.exptime})
+        SetExptime.execute({'Exptime' : args.exptime})
         SetImageSave.execute({'save' : True})
+        ToggleCamera.execute({'status' : 'stop'})
 
 
     @classmethod
