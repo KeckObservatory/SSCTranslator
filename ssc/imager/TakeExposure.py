@@ -20,33 +20,41 @@ class TakeExposure(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
+        if magiq.read('CAMCMD') != 'OK':
+            raise DDOIExceptions.DDOISubsystemDisabledException(f'MAGIQ CAMCMD not OK')
         return True
 
     @classmethod
     def perform(cls, args, logger, cfg):
         service = cfg['magiq']['service_name']
         magiq = ktl.cache(service)
-        lastframe=int(float(magiq.read('IMGFRNR')))
-        logger.info(f'taking {lastframe}th frame')
 
-        ToggleCamera.execute({'status' : 'start'})
-        SetImagePath.execute({'path' : '/s/nightly1/tonight'})
+        magiq['MQSNPGF'].write(1)
+
+        # lastframe=int(float(magiq.read('IMGFRNR')))
+        # logger.info(f'taking {lastframe}th frame')
+
+        # ToggleCamera.execute({'status' : 'start'})
+        # SetImagePath.execute({'path' : '/s/nightly1/tonight'})
         # SetGuiding.execute({'guiding' : False})
         # SetBinning.execute({'binning' : args.binning})
-        SetExptime.execute({'Exptime' : args.exptime})
-        SetImageSave.execute({'save' : True})
-        # Use MQSNPGF to save a frame
-        ToggleCamera.execute({'status' : 'stop'})
+        # SetExptime.execute({'Exptime' : args.exptime})
+        # SetImageSave.execute({'save' : True})
+        # # Use MQSNPGF to save a frame
+        # ToggleCamera.execute({'status' : 'stop'})
 
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-        service = cfg['magiq']['service_name']
-        magiq = ktl.cache(service)
-        newframe=magiq.read('IMGFRNR')
-        if newframe<=args.lastframe:
-            raise DDOIExceptions.FailedToReachDestination(newframe, args.lastframe)
-        else:
-            return True
+        return True
+        # service = cfg['magiq']['service_name']
+        # magiq = ktl.cache(service)
+        # newframe=magiq.read('IMGFRNR')
+        # if newframe<=args.lastframe:
+        #     raise DDOIExceptions.FailedToReachDestination(newframe, args.lastframe)
+        # else:
+        #     return True
 
 
