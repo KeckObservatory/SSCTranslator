@@ -30,9 +30,9 @@ class SetExptime(SSCTranslatorFunction):
     def post_condition(cls, args, logger, cfg):
         service = cfg['magiq']['service_name']
         logger.debug(f"Checking for success for service {service}")
-        ttime = args.get('Exptime')
+        ttime = args.get('exptime')
         magiq = ktl.cache(service)
-        magiqttime = magiq.read('TTIME')
+        magiqttime = int(magiq.read('TTIME'))
         if magiqttime!=ttime:
             raise DDOIExceptions.FailedToReachDestination(magiqttime, ttime)
         else:
