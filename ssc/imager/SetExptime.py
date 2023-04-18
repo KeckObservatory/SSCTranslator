@@ -24,7 +24,6 @@ class SetExptime(SSCTranslatorFunction):
         ttime = args.get('exptime')
         logger.debug(f"Setting exposure time to {ttime:.3f} for service {service}")
         magiq['TTIME'].write(ttime)
-        magiq['camcmd'].write('start')
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
