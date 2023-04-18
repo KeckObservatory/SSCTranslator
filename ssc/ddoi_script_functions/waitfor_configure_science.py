@@ -1,8 +1,8 @@
 import ktl
-from kpf.KPFTranslatorFunction import KPFTranslatorFunction
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 
 
-class waitfor_configure_science(KPFTranslatorFunction):
+class waitfor_configure_science(SSCTranslatorFunction):
     '''
     '''
     @classmethod

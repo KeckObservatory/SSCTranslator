@@ -1,8 +1,8 @@
 import ktl
-from kpf.KPFTranslatorFunction import KPFTranslatorFunction
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 
 
-class configure_for_acquisition(KPFTranslatorFunction):
+class configure_for_acquisition(SSCTranslatorFunction):
     '''
     '''
     @classmethod

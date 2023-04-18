@@ -1,8 +1,8 @@
 import ktl
-from kpf.KPFTranslatorFunction import KPFTranslatorFunction
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 
 
-class post_observation_cleanup(KPFTranslatorFunction):
+class post_observation_cleanup(SSCTranslatorFunction):
     '''
     '''
     @classmethod

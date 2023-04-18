@@ -35,6 +35,7 @@ class TakeExposure(SSCTranslatorFunction):
         # SetBinning.execute({'binning' : args.binning})
         SetExptime.execute({'Exptime' : args.exptime})
         SetImageSave.execute({'save' : True})
+        # Use MQSNPGF to save a frame
         ToggleCamera.execute({'status' : 'stop'})
 
 
