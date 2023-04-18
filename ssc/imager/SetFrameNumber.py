@@ -19,7 +19,8 @@ class SetFrameNumber(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         frame = args.get('frame')
         logger.debug("Setting frame number to "+frame)
         magiq['IMGFRNR'].write(frame)
@@ -29,7 +30,8 @@ class SetFrameNumber(SSCTranslatorFunction):
     def post_condition(cls, args, logger, cfg):
         logger.debug("Checking for success")
         frame = args.get('frame')
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         magiqframe=magiq.read('IMGFRNR')
         if magiqframe!=frame:
             raise DDOIExceptions.FailedToReachDestination(magiqframe, frame)

@@ -19,7 +19,8 @@ class SetImageSave(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         save = args.get('save')
         logger.debug("Setting image saving to "+str(save))
         if save==True:
@@ -32,7 +33,8 @@ class SetImageSave(SSCTranslatorFunction):
     def post_condition(cls, args, logger, cfg):
         logger.debug("Checking for success")
         save = args.get('save')
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         magiqsave=magiq.read('mqsnpff')
         if save!=bool(magiqsave):
             raise DDOIExceptions.FailedToReachDestination(magiqsave, save)

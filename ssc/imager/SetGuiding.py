@@ -17,7 +17,8 @@ class SetGuiding(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         guiding = args.get('guiding')
         logger.debug("Setting guiding to "+guiding)
         if guiding==True:

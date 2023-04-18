@@ -1,6 +1,7 @@
 import ktl
 from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 from ..imager.SetExptime import SetExptime
+from ..imager.GetImagePath import GetImagePath 
 
 class execute_observation(SSCTranslatorFunction):
     '''
@@ -18,7 +19,9 @@ class execute_observation(SSCTranslatorFunction):
         params = sequence.get('parameters')
         exptime = params.get('det1_exp_time')
         seArgs = {'exptime': exptime}
+
         SetExptime.execute(seArgs, logger, cfg)
+        GetImagePath.execute({}, logger, cfg)
 
         
 

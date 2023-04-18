@@ -16,9 +16,10 @@ class GetImagePath(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         magiqpath=magiq.read('IMGDIR')
-        logger.info(f"Exposure path is: {magiqpath}")
+        logger.info(f"Exposure path is: {magiqpath} for service {service}")
         print(magiqpath)
         return magiqpath
 

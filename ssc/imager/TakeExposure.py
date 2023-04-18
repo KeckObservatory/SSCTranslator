@@ -16,9 +16,10 @@ class TakeExposure(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-
-        magiq = ktl.cache('magiq')
-        lastframe=magiq.read('IMGFRNR')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
+        lastframe=int(float(magiq.read('IMGFRNR')))
+        logger.info(f'taking {lastframe}th frame')
 
         SetImagePath(path='/s/nightly1/tonight')
         SetGuiding(guiding=False)
@@ -29,8 +30,8 @@ class TakeExposure(SSCTranslatorFunction):
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         newframe=magiq.read('IMGFRNR')
         if newframe<=args.lastframe:
             raise DDOIExceptions.FailedToReachDestination(newframe, args.lastframe)

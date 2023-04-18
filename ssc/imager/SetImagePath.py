@@ -19,7 +19,8 @@ class SetImagePath(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         path = args.get('path')
         logger.debug("Setting exposure time to "+path)
         magiq['IMGDIR'].write(path)
@@ -29,7 +30,8 @@ class SetImagePath(SSCTranslatorFunction):
     def post_condition(cls, args, logger, cfg):
         logger.debug("Checking for success")
         path = args.get('path')
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         magiqpath=magiq.read('IMGDIR')
         if magiqpath!=path:
             raise DDOIExceptions.FailedToReachDestination(magiqpath, path)
