@@ -1,8 +1,8 @@
 import ktl
-from kpf.KPFTranslatorFunction import KPFTranslatorFunction
+from ssc.SSCTranslatorFunction import SSCTranslatorFunction
 from ..imager.SetExptime import SetExptime
 
-class execute_observation(KPFTranslatorFunction):
+class execute_observation(SSCTranslatorFunction):
     '''
     '''
     @classmethod
