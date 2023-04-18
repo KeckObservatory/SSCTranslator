@@ -1,5 +1,6 @@
 from ddoitranslatormodule.BaseFunction import TranslatorModuleFunction
 import os
+import ktl
 
 
 class SSCTranslatorFunction(TranslatorModuleFunction):
@@ -24,3 +25,10 @@ class SSCTranslatorFunction(TranslatorModuleFunction):
             if type(args[key]) in allowed_types:
                 return True
         return False
+    
+    @classmethod
+    def set_magiq_cmd(cls, logger):
+        magiq = ktl.cache('magiq')
+        logger.debug(f"Setting magiqcmd")
+        magiq['camcmd'].write('set')
+
