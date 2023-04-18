@@ -2,7 +2,13 @@ import time
 import ktl
 
 from ssc.SSCTranslatorFunction import SSCTranslatorFunction
-from ssc.imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
+from ssc.imager.SetImagePath import SetImagePath
+from ssc.imager.SetGuiding import SetGuiding
+from ssc.imager.SetBinning import SetBinning
+from ssc.imager.SetExptime import SetExptime
+from ssc.imager.SetImageSave import SetImageSave
+
+# from ssc.imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
 from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
 
 
@@ -21,11 +27,11 @@ class TakeExposure(SSCTranslatorFunction):
         lastframe=int(float(magiq.read('IMGFRNR')))
         logger.info(f'taking {lastframe}th frame')
 
-        SetImagePath(path='/s/nightly1/tonight')
-        SetGuiding(guiding=False)
-        SetBinning(binning=args.binning)
-        SetExptime(Exptime=args.exptime)
-        SetImageSave(save=True)
+        SetImagePath.execute({'path' : '/s/nightly1/tonight'})
+        # SetGuiding.execute({'guiding' : False})
+        # SetBinning.execute({'binning' : args.binning})
+        # SetExptime.execute({'Exptime' : args.exptime})
+        SetImageSave.execute({'save' : True})
 
 
     @classmethod
