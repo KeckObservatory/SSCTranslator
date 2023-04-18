@@ -32,7 +32,8 @@ class SetExptime(SSCTranslatorFunction):
         logger.debug(f"Checking for success for service {service}")
         ttime = args.get('exptime')
         magiq = ktl.cache(service)
-        magiqttime = int(magiq.read('TTIME'))
+        magiqttime = magiq.read('TTIME')
+        magiqttime = int(float(magiqttime)) # convert to int
         if magiqttime!=ttime:
             raise DDOIExceptions.FailedToReachDestination(magiqttime, ttime)
         else:
