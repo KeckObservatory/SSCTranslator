@@ -31,6 +31,8 @@ class configure_for_science(SSCTranslatorFunction):
         SetImagePath.execute({'path' : '/s/nightly1/tonight'})
         # Tell MAGIQ to save these images
         SetImageSave.execute({'save' : True})
+
+        # I AM NOT SETTING BINNING OR GUIDING HERE
         
         # Tell MAGIQ to load our values
         cls.set_magiq_cmd(logger)

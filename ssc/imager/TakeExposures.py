@@ -15,7 +15,7 @@ from ddoitranslatormodule.ddoiexceptions import DDOIExceptions
 
 
 
-class TakeExposure(SSCTranslatorFunction):
+class TakeExposures(SSCTranslatorFunction):
     '''Take an exposure with the SSC
     '''
     @classmethod
@@ -31,11 +31,20 @@ class TakeExposure(SSCTranslatorFunction):
         service = cfg['magiq']['service_name']
         magiq = ktl.cache(service)
 
-        magiq['MQSNPGF'].write(1)
+        lastframe=int(float(magiq.read('IMGFRNR')))
+        logger.info(f'taking {lastframe}th frame')
+        target_file_number = lastframe + args.get('num_frames')
+        expression = f"${service}.IMGFRNR < '{target_file_number}'"
 
-        # lastframe=int(float(magiq.read('IMGFRNR')))
-        # logger.info(f'taking {lastframe}th frame')
+        # Exposure time x Number of frames x 2 (safety factor)
+        timeout = float(magiq.read('TTIME')) * args.get('num_frames') * 2
 
+        success = ktl.waitFor(expression, timeout=timeout)
+
+        if not success:
+            raise DDOIExceptions.DDOIKTLTimeOut(f"Timed out while trying to expose with MAGIQ")
+        
+        return success
         # ToggleCamera.execute({'status' : 'start'})
         # SetImagePath.execute({'path' : '/s/nightly1/tonight'})
         # SetGuiding.execute({'guiding' : False})

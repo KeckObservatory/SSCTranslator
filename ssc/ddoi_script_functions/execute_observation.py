@@ -1,8 +1,7 @@
 import ktl
 from ssc.SSCTranslatorFunction import SSCTranslatorFunction
-from ..imager.SetExptime import SetExptime
-from ..imager.GetImagePath import GetImagePath 
-
+from ssc.imager.TakeSnapshot import TakeSnapshot
+from ssc.imager.TakeExposures import TakeExposures
 class execute_observation(SSCTranslatorFunction):
     '''
     '''
@@ -12,16 +11,19 @@ class execute_observation(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
+        # Call TakeExposure
         sequence = args.get('sequence')
         metadata = sequence.get('metadata')
         seq_num = metadata.get('sequence_number')
         logger.info(f'excuting observation for seq {seq_num}')
         params = sequence.get('parameters')
-        exptime = params.get('det1_exp_time')
-        seArgs = {'exptime': exptime}
+        num_frames = params.get('det1_exp_number')
+        
+        if num_frames > 1:
+            TakeExposures.execute({'num_frames' : num_frames})
+        else:
+            TakeSnapshot.execute()
 
-        SetExptime.execute(seArgs, logger, cfg)
-        GetImagePath.execute({}, logger, cfg)
 
         
 
