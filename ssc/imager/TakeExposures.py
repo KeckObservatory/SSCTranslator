@@ -2,12 +2,7 @@ import time
 import ktl
 
 from ssc.SSCTranslatorFunction import SSCTranslatorFunction
-from ssc.imager.SetImagePath import SetImagePath
-from ssc.imager.SetGuiding import SetGuiding
-from ssc.imager.SetBinning import SetBinning
-from ssc.imager.SetExptime import SetExptime
-from ssc.imager.SetImageSave import SetImageSave
-from ssc.imager.ToggleCamera import ToggleCamera
+from ssc.imager.TakeSnapshot import TakeSnapshot
 
 
 # from ssc.imager import SetImagePath, SetGuiding, SetBinning, SetExptime, SetImageSave
@@ -20,6 +15,7 @@ class TakeExposures(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
+        cls.check_inputs(args, 'num_frames', [int])
         service = cfg['magiq']['service_name']
         magiq = ktl.cache(service)
         if magiq.read('CAMCMD') != 'OK':
@@ -28,31 +24,27 @@ class TakeExposures(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        service = cfg['magiq']['service_name']
-        magiq = ktl.cache(service)
+        # service = cfg['magiq']['service_name']
+        # magiq = ktl.cache(service)
 
-        lastframe=int(float(magiq.read('IMGFRNR')))
-        logger.info(f'taking {lastframe}th frame')
-        target_file_number = lastframe + args.get('num_frames')
-        expression = f"${service}.IMGFRNR < '{target_file_number}'"
+        for i in range(int(args.get('num_frames'))):
+            logger.info(f"Taking exposure #{i}...")
+            TakeSnapshot({}, logger=logger)
 
-        # Exposure time x Number of frames x 2 (safety factor)
-        timeout = float(magiq.read('TTIME')) * args.get('num_frames') * 2
+        # lastframe=int(float(magiq.read('IMGFRNR')))
+        # logger.info(f'taking {lastframe}th frame')
+        # target_file_number = lastframe + args.get('num_frames')
+        # expression = f"${service}.IMGFRNR < '{target_file_number}'"
 
-        success = ktl.waitFor(expression, timeout=timeout)
+        # # Exposure time x Number of frames x 2 (safety factor)
+        # timeout = float(magiq.read('TTIME')) * args.get('num_frames') * 2
 
-        if not success:
-            raise DDOIExceptions.DDOIKTLTimeOut(f"Timed out while trying to expose with MAGIQ")
+        # success = ktl.waitFor(expression, timeout=timeout)
+
+        # if not success:
+        #     raise DDOIExceptions.DDOIKTLTimeOut(f"Timed out while trying to expose with MAGIQ")
         
-        return success
-        # ToggleCamera.execute({'status' : 'start'})
-        # SetImagePath.execute({'path' : '/s/nightly1/tonight'})
-        # SetGuiding.execute({'guiding' : False})
-        # SetBinning.execute({'binning' : args.binning})
-        # SetExptime.execute({'Exptime' : args.exptime})
-        # SetImageSave.execute({'save' : True})
-        # # Use MQSNPGF to save a frame
-        # ToggleCamera.execute({'status' : 'stop'})
+        # return success
 
 
     @classmethod
