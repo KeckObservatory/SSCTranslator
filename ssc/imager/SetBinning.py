@@ -19,7 +19,8 @@ class SetBinning(SSCTranslatorFunction):
 
     @classmethod
     def perform(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         binning = args.get('binning')
         logger.debug(f"Setting binning to {binning:.3f}")
         magiq['BINNING'].write(binning)
@@ -27,7 +28,8 @@ class SetBinning(SSCTranslatorFunction):
 
     @classmethod
     def post_condition(cls, args, logger, cfg):
-        magiq = ktl.cache('magiq')
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service)
         logger.debug("Checking for success")
         binning = args.get('binning')
         magiqbin = magiq['BINNING'].read()
