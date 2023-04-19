@@ -38,7 +38,7 @@ class configure_for_science(SSCTranslatorFunction):
         # I AM NOT SETTING BINNING OR GUIDING HERE
         
         # Tell MAGIQ to load our values
-        cls.set_magiq_cmd(logger)
+        cls.set_magiq_cmd(logger), cfg
 
         # Start the camera
         ToggleCamera.execute({'status' : 'start'})
