@@ -45,7 +45,7 @@ class configure_for_science(SSCTranslatorFunction):
         ###
 
         # Tell MAGIQ to load our values
-        cls.set_magiq_cmd(logger), cfg
+        cls.set_magiq_cmd(logger, cfg)
 
         # Start the camera
         ToggleCamera.execute({'status' : 'start'})
