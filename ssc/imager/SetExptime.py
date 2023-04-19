@@ -14,6 +14,8 @@ class SetExptime(SSCTranslatorFunction):
     '''
     @classmethod
     def pre_condition(cls, args, logger, cfg):
+        import pprint
+        pprint.pprint(args)
         cls.check_inputs(args, 'exptime', allowed_types=[int, float])
         return True
 

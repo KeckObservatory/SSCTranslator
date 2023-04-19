@@ -27,8 +27,9 @@ class SSCTranslatorFunction(TranslatorModuleFunction):
         return False
     
     @classmethod
-    def set_magiq_cmd(cls, logger):
-        magiq = ktl.cache('magiq')
+    def set_magiq_cmd(cls, logger, cfg):
+        service = cfg['magiq']['service_name']
+        magiq = ktl.cache(service`)
         logger.debug(f"Setting magiqcmd")
         magiq['camcmd'].write('set')
 
