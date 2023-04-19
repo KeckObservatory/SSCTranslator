@@ -26,17 +26,24 @@ class configure_for_science(SSCTranslatorFunction):
         # binning = parameters.get('det1_binning')
 
         # Set the values
+
+        # Binning is commented out, because the OB has no binning parameter
         # SetBinning.execute({'binning' : binning}, logger=logger)
+        
         SetExptime.execute({'exptime' : exptime}, logger=logger)
 
         # Where to save these images
         loc = cfg['magiq']['save_location']
         SetImagePath.execute({'path' : loc}, logger=logger)
-        # Tell MAGIQ to save these images
-        SetImageSave.execute({'save' : True}, logger=logger)
 
-        # I AM NOT SETTING BINNING OR GUIDING HERE
-        
+        # This just takes a picture! Commenting out, intend to remove shortly.
+        # Tell MAGIQ to save these images
+        # SetImageSave.execute({'save' : True}, logger=logger)
+
+        ###
+        # Guiding is commented out for daytime testing!
+        ###
+
         # Tell MAGIQ to load our values
         cls.set_magiq_cmd(logger), cfg
 
