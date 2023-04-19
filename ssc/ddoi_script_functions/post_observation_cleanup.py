@@ -13,7 +13,6 @@ class post_observation_cleanup(SSCTranslatorFunction):
     @classmethod
     def perform(cls, args, logger, cfg):
         ToggleCamera.execute({'status' : 'stop'}, logger=logger)
-        SetImageSave.execute({'save' : False}, logger=logger)
     @classmethod
     def post_condition(cls, args, logger, cfg):
         return True
