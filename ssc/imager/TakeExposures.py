@@ -29,7 +29,7 @@ class TakeExposures(SSCTranslatorFunction):
 
         for i in range(int(args.get('num_frames'))):
             logger.info(f"Taking exposure #{i}...")
-            TakeSnapshot({}, logger=logger)
+            TakeSnapshot.execute({}, logger=logger)
 
         # lastframe=int(float(magiq.read('IMGFRNR')))
         # logger.info(f'taking {lastframe}th frame')
