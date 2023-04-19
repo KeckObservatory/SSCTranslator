@@ -19,18 +19,18 @@ class configure_for_science(SSCTranslatorFunction):
 
         # Extract our needed arguments (exptime and binning)
         sequence = args.get('sequence')
-        parameters = sequence.get('paramters')
+        parameters = sequence.get('parameters')
         exptime = parameters.get('det1_exp_time')
         binning = parameters.get('det1_binning')
 
         # Set the values
-        SetBinning.execute({'exptime' : binning})
-        SetExptime.execute({'binning' : exptime})
+        # SetBinning.execute({'exptime' : binning}, logger=logger)
+        SetExptime.execute({'binning' : exptime}, logger=logger)
 
         # Where to save these images
-        SetImagePath.execute({'path' : '/s/nightly1/tonight'})
+        SetImagePath.execute({'path' : '/s/nightly1/tonight'}, logger=logger)
         # Tell MAGIQ to save these images
-        SetImageSave.execute({'save' : True})
+        SetImageSave.execute({'save' : True}, logger=logger)
 
         # I AM NOT SETTING BINNING OR GUIDING HERE
         

@@ -31,7 +31,7 @@ class TakeSnapshot(SSCTranslatorFunction):
         service = cfg['magiq']['service_name']
         magiq = ktl.cache(service)
 
-        magiq['MQSNPGF'].write(1)
+        magiq['MQSNPFF'].write(1)
 
         # lastframe=int(float(magiq.read('IMGFRNR')))
         # logger.info(f'taking {lastframe}th frame')

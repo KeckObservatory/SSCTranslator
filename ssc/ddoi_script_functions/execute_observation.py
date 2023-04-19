@@ -20,9 +20,12 @@ class execute_observation(SSCTranslatorFunction):
         num_frames = params.get('det1_exp_number')
         
         if num_frames > 1:
-            TakeExposures.execute({'num_frames' : num_frames})
+            TakeExposures.execute({'num_frames' : num_frames}, logger=logger)
         else:
-            TakeSnapshot.execute()
+            logger.info("Taking Snapshot!")
+            print("Taking Snapshot.")
+            TakeSnapshot.execute({}, logger=logger)
+            logger.info("Snapshot done!")
 
 
         
